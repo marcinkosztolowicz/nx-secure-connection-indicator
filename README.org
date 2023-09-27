@@ -2,6 +2,17 @@
 
 Secure connection indicator on the left of the URL.
 
+
+* How it works
+This extension uses the WebKit browser engine to determine if a given website has a secure connection. If the connection is of type HTTPS but the certificate is invalid, you can see an HTTPS error flag when hovering over the connection status indicator. More information about invalid certificate flag can be found at this link: https://api.gtkd.org/gio.c.types.GTlsCertificateFlags.html.
+
+* Showcase
+
+secure connection [S] example:
+
+#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+[[./secure-example.png]]
+
 * Installation
 
 Git-clone the repository to your Nyxt extension directory. This
@@ -17,10 +28,21 @@ the following:
 #+NAME: add nx-fruit to init
 #+BEGIN_SRC lisp
 ;#+nyxt-3
-  (nyxt:define-nyxt-user-system-and-load "nyxt-user/nx-secure-connection-indicator-proxy"
+(define-configuration status-buffer
+  ((style (str:concat %slot-value%
+                      (theme:themed-css (theme *browser*)
+                        ;; See the `describe-class' of `status-buffer' to
+                        ;; understand what to customize
+                        '("#controls"
+                          :flex-basis "110px"
+                          ))))))
+
+
+(nyxt:define-nyxt-user-system-and-load "nyxt-user/nx-secure-connection-indicator-proxy"
     :description "This proxy system saves us if nx-secure-connection-indicator fails to load.
   Otherwise it will break all the config loading."
     :depends-on ("nx-secure-connection-indicator"))
+
 #+END_SRC
 
 Now, upon starting Nyxt, the glory of the secure connection indicator shall be yours! enjoy.
