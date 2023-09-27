@@ -8,7 +8,6 @@
     (setf (get 'nyxt::format-status-buttons 'nyxt::nyxt-status-default-method-definition) (fdefinition 'nyxt::format-status-buttons))
     )
  ; test in slime repl (format-status-load-status (status-buffer (current-window)))
- ; old working version for 3.0.0
 (defun format-status-buttons (status)
   (let ((format-status-buttons-default (get 'nyxt::format-status-buttons 'nyxt::nyxt-status-default-method-definition))
         (buffer (current-buffer (window status))))
@@ -60,7 +59,7 @@
 (defun list-of-bits (integer)
   (loop for index below 8 collect (if (logbitp index integer) 1 0)))
 
-;---
+
 
 (defun tlsstr (buffer)
   ""
@@ -114,16 +113,5 @@
         :text (format nil "[~a]" (secure-symbol tls-info-render-value))
 
         :title (text-info tls-info-render-value)
-        :style (format nil "background-color:~a;color: black;width: 22px" (color tls-info-render-value)) ; "background-color:#4CAF50;"
+        :style (format nil "background-color:~a;color: black;width: 22px" (color tls-info-render-value))
         '(nyxt:set-url)))))
-
-
-
-
-
-;;TODO rewrite with structures
-;;https://lispcookbook.github.io/cl-cookbook/data-structures.html#structures
-
-
-
-
